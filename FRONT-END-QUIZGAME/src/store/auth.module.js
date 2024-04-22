@@ -10,6 +10,7 @@ export const auth = {
         login({ commit }, user) {
             return AuthService.login(user).then(
                 user => {
+
                     commit('loginSuccess', user);
                     return Promise.resolve(user);
                 },
@@ -34,6 +35,12 @@ export const auth = {
                     return Promise.reject(error);
                 }
             );
+        },
+
+        storeToken({ commit }, token) {
+            console.log(token);
+            localStorage.setItem('token', token);
+            commit('storeToken', token);
         }
     },
     mutations: {
@@ -54,6 +61,9 @@ export const auth = {
         },
         registerFailure(state) {
             state.status.loggedIn = false;
+        },
+        storeToken(state, token) {
+            state.token = token;
         }
     }
 };

@@ -42,7 +42,7 @@
     },
     methods:{
         test(){
-            console.log(this.currentUser);
+            console.log(localStorage.getItem('user'));
         }
     }
   };
