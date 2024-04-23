@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <nav class="navbar navbar-expand navbar-dark bg-dark">
+    <!-- <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
           <router-link to="/home" class="nav-link">
@@ -44,7 +44,7 @@
           </a>
         </li>
       </div>
-    </nav>
+    </nav> -->
 
     <div class="container">
       <router-view />
@@ -83,6 +83,7 @@ export default {
 </script>
 <style scoped>
 .container {
-  background: #000;
+  width: 100vw;
+  height: 100vh;
 }
 </style>

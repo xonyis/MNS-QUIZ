@@ -1,13 +1,10 @@
 <template>
-    <div class="container">
-      <header class="jumbotron">
-        <h3>{{ content }}</h3>
-      </header>
-    </div>
+      <Login/>
   </template>
   
   <script>
   import UserService from '../auth/user.service.js';
+import Login from './Login.vue';
   
   export default {
     name: "Home",
@@ -15,6 +12,9 @@
       return {
         content: "",
       };
+    },
+    components: {
+      Login
     },
     mounted() {
       UserService.getPublicContent().then(

@@ -1,41 +1,37 @@
 <template>
-    <div class="col-md-12">
-      <div class="card card-container">
-        <img
-          id="profile-img"
-          src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-          class="profile-img-card"
-        />
-        <Form @submit="handleLogin" :validation-schema="schema">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <Field name="username" type="text" class="form-control" />
-            <ErrorMessage name="username" class="error-feedback" />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <Field name="password" type="password" class="form-control" />
-            <ErrorMessage name="password" class="error-feedback" />
-          </div>
-  
-          <div class="form-group">
-            <button class="btn btn-primary btn-block" :disabled="loading">
-              <span
-                v-show="loading"
-                class="spinner-border spinner-border-sm"
-              ></span>
-              <span>Login</span>
-            </button>
-          </div>
-  
-          <div class="form-group">
-            <div v-if="message" class="alert alert-danger" role="alert">
-              {{ message }}
+    <div class="col-12">
+    <main>
+        <div class="card">
+            <div class="logo-mns">
+              <img src="https://www.metz-numeric-school.fr/build/images/frontend/logo-mns.svg" alt="">
+              <p>Metz numeric School</p>
             </div>
-          </div>
-        </Form>
-      </div>
-    </div>
+            <div class="form-connection">
+                <Form @submit="handleLogin" :validation-schema="schema">
+                  <div class="input-container">
+                    <div class="input-wrapper">
+                      <Field name="username" placeholder=" " type="text" class="input" />
+                      <span class="placeholder">Username</span>
+                    </div>
+
+                    <div class="input-wrapper">
+                      <Field name="password" type="password" placeholder=" " class="input"  />
+                      <span class="placeholder">Password</span>
+                    </div>
+                  </div>
+                  
+
+
+
+                  <button class="btn btn-primary btn-block" :disabled="loading">Se connecter</button>
+                    
+                  <div v-if="message" class="error-feedback" role="alert">{{ message }}</div>
+
+                </Form>
+            </div>
+        </div>
+    </main>
+  </div>
   </template>
   
   <script>
@@ -95,37 +91,164 @@
   </script>
   
   <style scoped>
-  label {
-    display: block;
-    margin-top: 10px;
-  }
   
-  .card-container.card {
-    max-width: 350px !important;
-    padding: 40px 40px;
-  }
+  main {
+    background-image: url('https://media.routard.com/image/60/2/metz.1560602.jpg');
+    
+    height: 100vh;
+    width: 100vw;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+}
+
+.card {
+    background: rgba(245, 245, 245, 0.667);
+    width: 32.5vw;
+    height: 70vh;
+    border-radius: 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 5em;
+}
+.card img {
+    width: 75%;
+}
+
+.logo-mns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: grey;
+    font-family: var(--font);
+}
+
+.logo-mns p {
+  margin-top: .5em;
+  font-family: var(--font);
+}
+.form-connection {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 30vw;
+    margin-top: 2em;
+}
+
+form {
+  font-family: var(--font);
+    height: max-content;
+    width: 100%;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.input-container {
+ width: 100%;
+ height: 25vh;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: space-around;
+}
+
+.input-wrapper {
+  position: relative;
+  width: 60%;
+}
+.input {
+  height: 50px;
+  font-size: 16px;
+  padding: 11px 15px;
+  border-radius: 4px;
+  border: 1px solid #CBD8E3;
+  width: 100%;
+  outline: none;
+  box-sizing: border-box;
+  background-color: #ffffff8f;
   
-  .card {
-    background-color: #f7f7f7;
-    padding: 20px 25px 30px;
-    margin: 0 auto 25px;
-    margin-top: 50px;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    -moz-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    -webkit-box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
-  }
+}
+.placeholder {
+  pointer-events: none;
+  position: absolute;
+  font-weight: 400;
+  top: 12px;
+  left: 8px;
+  padding: 0 8px;
+  background-color: rgba(245, 245, 245, 0);
+  border-radius: 5px;
+  transition: transform 250ms cubic-bezier(0.4,0,0.2,1), opacity 250ms cubic-bezier(0.4,0,0.2,1);
+  color: grey;
+}
+
+.input:not(:placeholder-shown).input:not(:focus) + .placeholder {
+  transform: scale(.75) translateY(-45px) translateX(-15%);
+  color: var(--orange-mns);
+  transition: .2s ease;
+}
+.input:not(:placeholder-shown).input:not(:focus) {
+  border-color: var(--orange-mns);
+  transition: .2s ease;
+}
+.input:focus {
   
-  .profile-img-card {
-    width: 96px;
-    height: 96px;
-    margin: 0 auto 10px;
-    display: block;
-    -moz-border-radius: 50%;
-    -webkit-border-radius: 50%;
-    border-radius: 50%;
+  border-color: var(--orange-mns);
+} 
+
+.input:focus + .placeholder {
+  transform: scale(.75) translateY(-45px) translateX(-15%);
+  color: var(--orange-mns);
+  border-color: var(--orange-mns);
+  transition: .2s ease;
+} 
+
+.input:invalid:not(:placeholder-shown){
+  transition: .2s ease;
+  border-color:#F52C5C;
+}
+
+.input:invalid:not(:placeholder-shown) + .placeholder{
+  transition: .2s ease;
+  color:#F52C5C;
+}
+.input:invalid:not(:placeholder-shown).input:not(:focus) + .placeholder {
+  transform: scale(.75) translateY(-36px) translateX(-15%);
+  color: #F52C5C;
+  transition: .2s ease;
+}
+/* input {
+    font-size: 1.2em;
+    width: 60%;
+    font-family: var(--font);
+    font-weight: bold;
+    border: none;
+    border-radius: 7.5px;
+    padding: .5rem 1.5rem;
+} */
+
+  button {
+      padding: .7rem 1.5rem;
+      border: none;
+      border-radius: 7.5px;
+      background-color: var(--orange-mns);
+      font-size: 1.5em;
+      font-family: var(--font);
+      font-weight: bold;
+      color: whitesmoke;
+  }
+
+  button:hover {
+      padding:.7rem 2rem;
+      transition: 0.4s;
+
   }
   
   .error-feedback {
