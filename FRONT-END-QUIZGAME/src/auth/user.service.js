@@ -2,6 +2,7 @@ import axios from 'axios';
 import AuthService from './auth-service';
 
 const API_URL = 'http://localhost:8080/api/test/';
+axios.defaults.withCredentials = true;
 
 class UserService {
     constructor() {

@@ -8,7 +8,7 @@
       </header>
       <p>
         <strong>Token:</strong>
-    
+        {{ currentUser }}
       </p>
       <p>
         <strong>Id:</strong>
