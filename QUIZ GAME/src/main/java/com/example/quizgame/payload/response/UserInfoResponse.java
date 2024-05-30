@@ -11,11 +11,14 @@ public class UserInfoResponse {
     private String email;
     private List<String> roles;
 
-    public UserInfoResponse(Long id, String username, String email, List<String> roles) {
+    private String img;
+
+    public UserInfoResponse(Long id, String username, String email, List<String> roles, String img) {
         this.id = id;
         this.username = username;
         this.email = email;
         this.roles = roles;
+        this.img = img;
     }
 
     public UserInfoResponse(Long id, String username, String email, Collection<? extends GrantedAuthority> authorities) {
@@ -49,4 +52,11 @@ public class UserInfoResponse {
         return roles;
     }
 
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 }

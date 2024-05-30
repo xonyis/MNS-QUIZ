@@ -39,11 +39,14 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+    private String img;
+
     public User(){}
-    public User(String username, String email, String password){
+    public User(String username, String email, String password, String img){
         this.username = username;
         this.email = email;
         this.password = password;
+        this.img = img;
     }
 
     public long getId() {
@@ -84,5 +87,13 @@ public class User {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 }

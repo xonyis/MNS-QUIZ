@@ -1,45 +1,16 @@
 <template>
     <div class="col-12">
-    <main>
-        <div class="card">
-            <div class="logo-mns">
-              <img src="https://www.metz-numeric-school.fr/build/images/frontend/logo-mns.svg" alt="">
-              <p>Metz numeric School</p>
-            </div>
-            <div class="form-connection">
-                <Form @submit="handleLogin" :validation-schema="schema">
-                  <div class="input-container">
-                    <div class="input-wrapper">
-                      <Field name="username" placeholder=" " type="text" class="input" />
-                      <span class="placeholder">Username</span>
-                    </div>
-
-                    <div class="input-wrapper">
-                      <Field name="password" type="password" placeholder=" " class="input"  />
-                      <span class="placeholder">Password</span>
-                    </div>
-                  </div>
-                  
-
-
-
-                  <button class="btn btn-primary btn-block" :disabled="loading">Se connecter</button>
-                  <RouterLink class="btnSignUp" to="/signup">Créer un compte !</RouterLink>
-                  <div v-if="message" class="error-feedback" role="alert">{{ message }}</div>
-
-                </Form>
-            </div>
-        </div>
-    </main>
-  </div>
-  </template>
+        <Field name="username" placeholder=" " type="text" class="input" />
+        <span class="placeholder">Username</span>
+    </div>
+</template>
   
   <script>
   import { Form, Field, ErrorMessage } from "vee-validate";
   import * as yup from "yup";
   
   export default {
-    name: "Login",
+    name: "Signup",
     components: {
       Form,
       Field,
@@ -61,11 +32,6 @@
       loggedIn() {
         return this.$store.state.auth.status.loggedIn;
       },
-    },
-    created() {
-      if (this.loggedIn) {
-        this.$router.push("/profile");
-      }
     },
     methods: {
       handleLogin(user) {
@@ -250,12 +216,13 @@ form {
       transition: 0.4s;
 
   }
-  
-  .btnSignUp {
+
+  .btnSignIn {
     color: var(--orange-mns);
     font-weight: 600;
     font-size: 1.2em;
   }
+  
   .error-feedback {
     color: red;
   }

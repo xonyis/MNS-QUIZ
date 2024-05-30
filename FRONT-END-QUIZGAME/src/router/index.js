@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
+import Signup from "../components/Signup.vue";
+
 // lazy-loaded
 const Profile = () =>
     import ("../components/Profile.vue")
@@ -25,6 +27,10 @@ const routes = [{
     {
         path: "/login",
         component: Login,
+    },
+    {
+        path: "/signup",
+        component: Signup,
     },
     {
         path: "/register",

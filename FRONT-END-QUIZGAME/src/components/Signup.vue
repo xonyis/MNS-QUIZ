@@ -7,7 +7,7 @@
               <p>Metz numeric School</p>
             </div>
             <div class="form-connection">
-                <Form @submit="handleLogin" :validation-schema="schema">
+                <Form @submit="handleSignUp" :validation-schema="schema">
                   <div class="input-container">
                     <div class="input-wrapper">
                       <Field name="username" placeholder=" " type="text" class="input" />
@@ -15,16 +15,19 @@
                     </div>
 
                     <div class="input-wrapper">
+                      <Field name="email" placeholder=" " type="text" class="input" />
+                      <span class="placeholder">Email</span>
+                    </div>
+
+                    <div class="input-wrapper">
                       <Field name="password" type="password" placeholder=" " class="input"  />
                       <span class="placeholder">Password</span>
                     </div>
                   </div>
-                  
-
-
 
                   <button class="btn btn-primary btn-block" :disabled="loading">Se connecter</button>
-                  <RouterLink class="btnSignUp" to="/signup">Créer un compte !</RouterLink>
+                  <RouterLink class="btnSignIn" to="/login">Se connecter !</RouterLink>
+
                   <div v-if="message" class="error-feedback" role="alert">{{ message }}</div>
 
                 </Form>
@@ -36,18 +39,21 @@
   
   <script>
   import { Form, Field, ErrorMessage } from "vee-validate";
-  import * as yup from "yup";
+  import InputComponent from './input/InputComponent.vue'
+  import * as yup from "yup";"./"
   
   export default {
-    name: "Login",
+    name: "Signup",
     components: {
       Form,
       Field,
       ErrorMessage,
+      InputComponent,
     },
     data() {
       const schema = yup.object().shape({
         username: yup.string().required("Username is required!"),
+        email: yup.string().required("Email is required!"),
         password: yup.string().required("Password is required!"),
       });
   
@@ -62,18 +68,13 @@
         return this.$store.state.auth.status.loggedIn;
       },
     },
-    created() {
-      if (this.loggedIn) {
-        this.$router.push("/profile");
-      }
-    },
     methods: {
-      handleLogin(user) {
+      handleSignUp(user) {
         this.loading = true;
-        
-        this.$store.dispatch("auth/login", user).then(
+        console.log(user);
+        this.$store.dispatch("auth/register", user).then(
           () => {
-            this.$router.push("/profile");
+            this.$router.push("/login");
           },
           (error) => {
             this.loading = false;
@@ -250,12 +251,13 @@ form {
       transition: 0.4s;
 
   }
-  
-  .btnSignUp {
+
+  .btnSignIn {
     color: var(--orange-mns);
     font-weight: 600;
     font-size: 1.2em;
   }
+  
   .error-feedback {
     color: red;
   }
