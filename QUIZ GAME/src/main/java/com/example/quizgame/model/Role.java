@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Entity
 @RestController
 @CrossOrigin(origins = "http://localhost:5173")
-
 @Table(name = "roles")
 public class Role {
 

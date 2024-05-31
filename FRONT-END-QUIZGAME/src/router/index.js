@@ -3,17 +3,17 @@ import Home from "../components/Home.vue";
 import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
 import Signup from "../components/Signup.vue";
+import ProfileView from '../views/ProfileView.vue';
 
 // lazy-loaded
-const Profile = () =>
-    import ("../components/Profile.vue")
 const BoardAdmin = () =>
     import ("../components/EcranAdmin.vue")
 const BoardModerator = () =>
     import ("../components/EcranModo.vue")
 const BoardUser = () =>
     import ("../components/EcranUser.vue")
-
+const GestionUser = () =>
+    import ("../views/GestionUser.vue")
 
 const routes = [{
         path: "/",
@@ -40,7 +40,7 @@ const routes = [{
         path: "/profile",
         name: "profile",
         // lazy-loaded
-        component: Profile,
+        component: ProfileView,
     },
     {
         path: "/admin",
@@ -59,6 +59,12 @@ const routes = [{
         name: "user",
         // lazy-loaded
         component: BoardUser,
+    },
+    {
+        path: "/gestionUser",
+        name: "user",
+        // lazy-loaded
+        component: GestionUser,
     },
 ];
 

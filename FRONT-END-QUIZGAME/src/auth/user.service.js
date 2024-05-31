@@ -1,7 +1,7 @@
 import axios from 'axios';
 import AuthService from './auth-service';
-
-const API_URL = 'http://localhost:8080/api/test/';
+const API_URL = 'http://localhost:8080/api/users/';
+const API_URL_TEST = 'http://localhost:8080/api/test/';
 axios.defaults.withCredentials = true;
 
 class UserService {
@@ -27,19 +27,28 @@ class UserService {
     }
 
     getPublicContent() {
-        return axios.get(API_URL + 'all');
+        return axios.get(API_URL_TEST + 'all');
     }
 
     getUserBoard() {
-        return axios.get(API_URL + 'user');
+        return axios.get(API_URL_TEST + 'user');
     }
 
     getModeratorBoard() {
-        return axios.get(API_URL + 'mod', );
+        return axios.get(API_URL_TEST + 'mod', );
     }
 
     getAdminBoard() {
-        return axios.get(API_URL + 'admin');
+        return axios.get(API_URL_TEST + 'admin');
+    }
+
+    getAllUser() {
+        return axios.get(API_URL + 'getall')
+        .then(response => {
+            return response.data
+        }).catch(e => {
+            console.log(e);
+        })
     }
 }
 

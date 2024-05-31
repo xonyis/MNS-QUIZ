@@ -108,12 +108,12 @@
 .card {
     background: rgba(245, 245, 245, 0.667);
     width: 32.5vw;
-    height: 70vh;
+    height: max-content;
     border-radius: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5em;
+    padding: 3em 5em;
 }
 .card img {
     width: 75%;
@@ -129,6 +129,7 @@
 
 .logo-mns p {
   margin-top: .5em;
+  color: #5b6167;
   font-family: var(--font);
 }
 .form-connection {
@@ -138,10 +139,12 @@
     height: 100%;
     width: 30vw;
     margin-top: 2em;
+    
 }
 
 form {
   font-family: var(--font);
+  
     height: max-content;
     width: 100%;
     gap: 20px;
@@ -174,7 +177,6 @@ form {
   outline: none;
   box-sizing: border-box;
   background-color: #ffffff8f;
-  
 }
 .placeholder {
   pointer-events: none;

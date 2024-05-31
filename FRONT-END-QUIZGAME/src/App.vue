@@ -46,7 +46,7 @@
       </div>
     </nav> -->
 
-    <div class="container">
+    <div class="container-fluid p-0 m-0">
       <router-view />
     </div>
   </div>
@@ -82,8 +82,10 @@ export default {
 };
 </script>
 <style scoped>
-.container {
+.container-fluid {
   width: 100vw;
   height: 100vh;
+  background: #BDB2FF;
 }
+
 </style>

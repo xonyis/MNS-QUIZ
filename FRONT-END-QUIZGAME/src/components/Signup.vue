@@ -109,12 +109,12 @@
 .card {
     background: rgba(245, 245, 245, 0.667);
     width: 32.5vw;
-    height: 70vh;
+    height: max-content;
     border-radius: 5%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 5em;
+    padding: 3em 5em;
 }
 .card img {
     width: 75%;
@@ -154,7 +154,7 @@ form {
 
 .input-container {
  width: 100%;
- height: 25vh;
+ height: 35vh;
  display: flex;
  flex-direction: column;
  align-items: center;

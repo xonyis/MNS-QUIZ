@@ -3,7 +3,7 @@
   <div class="container">
     <div class="parent">
       <div class="div1">
-        <div class="profil-pics" >
+        <div class="profil-pics">
           <img v-if="user.img" :src="user.img" alt="profil-picture">
           <img v-else src="../assets/profils-picture.svg" alt="profil-picture">
         </div>
@@ -11,25 +11,38 @@
       <div class="div2">
         
         <button @click="logout">Log-out</button>
-        <p id="hello">Hey {{ user.username }} !</p>
+        
+        <p>Niveau :</p><br><br>
+        <p>Vos badges :</p>
       </div>
-      <div class="div3">
-        <p>Votre poste :</p>
-        <ul>
-            <li v-for="role in currentUser.user.roles" :key="role" style="list-style: none;">{{role}}</li>
-          </ul>
+      <div class="div3 p-0">
+        <div class="action-container ">
+          <p class="m-0 fs-3" id="hello">Hey {{ user.username }} !</p>
+          <hr>
+          <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
+          <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
+          <RouterLink v-if="checkAdminRole()">Créer un quizz</RouterLink>
+          <RouterLink v-if="checkAdminRole()">Gestion les équipes</RouterLink>
+          <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
+
+        </div>
       </div>
-      <div class="div4">d </div>
+      <div class="div4">
+        <p>Vos Équipes :</p><br>
+        afficher les équipe de l'user permettre d'accèder au quizz de la team, nbr de quizz, nbr de prsn dans l'equipe
+      </div>
     </div>
   </div>
 </template>
   <script>
 import authService from '@/auth/auth-service';
+import UserService from '@/auth/user.service';
+import { RouterLink } from 'vue-router';
   export default {
     name: 'Profile',
     data(){
       return {
-
+        test:null
       }
     },
     computed: {
@@ -66,12 +79,11 @@ import authService from '@/auth/auth-service';
               error.toString();
           }
         );
-        
-        
         },
         checkAdminRole(){
           return this.role.includes('ROLE_ADMIN');
-        }
+        },
+        
     }
   };
   </script>
@@ -113,6 +125,19 @@ width: 50vw;
 
 .div2 button {
   float: right;
+  font-size: 1.2em;
+  color: #fff;
+  background: var(--orange-mns);
+  padding: .3em 1em;
+  border-radius: 7px;
+  font-weight: 600;
+  border: 2px solid var(--orange-mns);
+  transition: all .5s ease-in-out;
+}
+
+.div2 button:hover {
+  background: #00000000;
+  color: black;
 }
 
 #hello {
@@ -137,11 +162,40 @@ width: 50vw;
   height: 150px;
   border-radius: 100px;
   border: 3px solid;
+  transition: all .3s ease-in-out ;
 }
 
 .profil-pics img:hover {
   opacity: .7;
-  transition: all .3s ease-in-out ;
+
+}
+
+
+.action-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  text-align: center;
+}
+
+.action-container a{
+background: var(--orange-mns);
+border: 2px solid var(--orange-mns);
+color: white;
+padding:  .2em; 
+font-weight: 600;
+font-size: .8em;
+border-radius: 5px;
+text-align: center;
+text-decoration: none;
+transition: all .3s ease-in-out ;
+
+}
+
+.action-container a:hover {
+  background: #00000000;
+  color: black;
 }
 
 </style>
