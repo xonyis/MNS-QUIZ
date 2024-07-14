@@ -44,11 +44,7 @@ class UserService {
 
     getAllUser() {
         return axios.get(API_URL + 'getall')
-        .then(response => {
-            return response.data
-        }).catch(e => {
-            console.log(e);
-        })
+
     }
 }
 

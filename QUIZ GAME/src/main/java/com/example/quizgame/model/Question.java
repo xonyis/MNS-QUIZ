@@ -1,6 +1,6 @@
 package com.example.quizgame.model;
 
-import com.example.quizgame.utils.QuestionType;
+import com.example.quizgame.enums.QuestionType;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.CrossOrigin;

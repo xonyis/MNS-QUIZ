@@ -6,10 +6,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.GregorianCalendar;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class UserDetailsImpl implements UserDetails {
@@ -39,9 +36,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public static UserDetailsImpl build(User user) {
-        List<GrantedAuthority> authorities = user.getRoles().stream()
-                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-                .collect(Collectors.toList());
+        GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getName().name());
 
         return new UserDetailsImpl(
                 user.getId(),
@@ -49,7 +44,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getEmail(),
                 user.getPassword(),
                 user.getImg(),
-                authorities);
+                Collections.singletonList(authority));
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

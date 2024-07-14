@@ -26,7 +26,7 @@ export default {
               { key: 'id', label: 'ID' },
               { key: 'username', label: 'Username' },
               { key: 'email', label: 'Email' },
-              { key: 'roles', label: 'Roles', formatter: roles => roles.map(role => role.name).join(', ') },
+              { key: 'role', label: 'Role'},
             ],
         }
     },
@@ -38,10 +38,20 @@ export default {
         QuizComponent
     },
     methods: {
+        async test() {
+      try {
+        const response = await userService.getAdminBoard();
+        console.log(response);
+      } catch (error) {
+        console.error('Erreur lors de la récupération des utilisateurs:', error);
+        // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
+      }
+    },
         async fetchUsers() {
       try {
         const response = await userService.getAllUser();
-        this.users = response;
+        this.users = response.data;
+        console.log(this.users);
       } catch (error) {
         console.error('Erreur lors de la récupération des utilisateurs:', error);
         // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur

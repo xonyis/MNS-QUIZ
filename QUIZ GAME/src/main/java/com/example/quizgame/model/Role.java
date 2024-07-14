@@ -1,5 +1,6 @@
 package com.example.quizgame.model;
 
+import com.example.quizgame.enums.EnumRole;
 import jakarta.persistence.*;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;

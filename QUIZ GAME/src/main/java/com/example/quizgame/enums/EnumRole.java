@@ -1,4 +1,4 @@
-package com.example.quizgame.model;
+package com.example.quizgame.enums;
 
 public enum EnumRole {
     ROLE_USER,

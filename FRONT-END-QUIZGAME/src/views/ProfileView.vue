@@ -11,9 +11,9 @@
       <div class="div2">
         
         <button @click="logout">Log-out</button>
-        
+        <button @click="testo()">test</button>
         <p>Niveau :</p><br><br>
-        <p>Vos badges :</p>
+        <p>Vos badges : {{ role }}</p>
       </div>
       <div class="div3 p-0">
         <div class="action-container ">
@@ -83,7 +83,9 @@ import { RouterLink } from 'vue-router';
         checkAdminRole(){
           return this.role.includes('ROLE_ADMIN');
         },
-        
+        testo(){
+          console.log(this.currentUser.user.roles);
+        }
     }
   };
   </script>

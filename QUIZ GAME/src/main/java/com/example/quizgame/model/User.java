@@ -1,5 +1,6 @@
 package com.example.quizgame.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -33,21 +34,21 @@ public class User {
     @Size(max = 120)
     private String password;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<Role> roles = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "role_id")
+    @JsonBackReference
+    private Role role;
 
 
     private String img;
 
     public User(){}
-    public User(String username, String email, String password, String img){
+    public User(String username, String email, String password, String img, Role role){
         this.username = username;
         this.email = email;
         this.password = password;
         this.img = img;
+        this.role = role;
     }
 
     public long getId() {
@@ -82,12 +83,12 @@ public class User {
         this.password = password;
     }
 
-    public Set<Role> getRoles() {
-        return roles;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getImg() {
