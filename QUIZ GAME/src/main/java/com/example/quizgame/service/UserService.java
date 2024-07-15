@@ -1,5 +1,6 @@
 package com.example.quizgame.service;
 
+import com.example.quizgame.model.Team;
 import com.example.quizgame.model.User;
 import com.example.quizgame.payload.response.UserInfoResponse;
 import com.example.quizgame.repository.UserRepository;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -87,6 +89,11 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public Set<Team> getTeamsOfUser(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+        return user.getTeams();
+    }
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }

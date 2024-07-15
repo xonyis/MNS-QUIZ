@@ -1,5 +1,6 @@
 package com.example.quizgame.payload.request;
 
+import com.example.quizgame.model.Team;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -23,6 +24,8 @@ public class SignupRequest {
     private String password;
 
     private String img;
+
+    private Set<Team> teams;
 
     public String getUsername() {
         return username;
@@ -62,5 +65,13 @@ public class SignupRequest {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

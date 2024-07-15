@@ -14,7 +14,7 @@
         <button @click="logout">Log-out</button>
         <button @click="testo()">test</button>
         <p>Niveau :</p><br><br>
-        <p>Votre poste : {{ role[0] }}</p>
+        <p>Votre poste : {{ role }}</p>
       </div>
       <div class="div3 p-0">
         <div class="action-container ">
@@ -29,8 +29,9 @@
         </div>
       </div>
       <div class="div4">
-        <p>Vos Équipes :</p><br>
-        afficher les équipe de l'user permettre d'accèder au quizz de la team, nbr de quizz, nbr de prsn dans l'equipe
+        <p>Vos Équipes :</p>
+        <p>afficher les équipe de l'user permettre d'accèder au quizz de la team, nbr de quizz, nbr de prsn dans l'equipe</p>        
+        <TableComponent :columns="columns" :data="userTeam" class="border"/>
       </div>
     </div>
   </div>
@@ -38,16 +39,25 @@
   <script>
 import authService from '@/auth/auth-service';
 import NavBarComponent from '../components/NavBarComponent.vue'
+import TableComponent from '../components/TableComponent.vue'
 import { RouterLink } from 'vue-router';
+import userService from '@/auth/user.service';
   export default {
     name: 'Profile',
     data(){
       return {
-        test:null
+        test:null,
+        userTeam:[],
+        columns: [
+              { key: 'id', label: 'ID' },
+              { key: 'name', label: "Nom de l'equipe" },
+              { key: 'userCount', label: "Nombre de participants" },
+            ],
       }
     },
     components: {
-      NavBarComponent
+      NavBarComponent,
+      TableComponent
     },
     computed: {
       currentUser() {
@@ -58,13 +68,14 @@ import { RouterLink } from 'vue-router';
       },
       role() {
         return this.user.roles
-      }
+      },
     },
     mounted() {
       if (!this.currentUser) {
         
         this.$router.push('/login');
       }
+      this.getUserTeam()
     },
     methods:{
         logout(){
@@ -88,7 +99,21 @@ import { RouterLink } from 'vue-router';
           return this.role.includes('ROLE_ADMIN');
         },
         testo(){
-          console.log(this.currentUser.user.roles);
+          console.log(this.currentUser.user);
+        },
+        async getUserTeam(){
+          try {
+            console.log(this.teamToAdd);
+              const response = await userService.getTeam(this.user.id);
+              this.userTeam = response.data.map(team => ({
+                        ...team,
+                        userCount: team.users.length
+                    }))
+              console.log(response.data);
+            } catch (error) {
+              console.error('Erreur lors de la récupération des utilisateurs:', error);
+              // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
+            }
         }
     }
   };

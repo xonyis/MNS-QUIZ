@@ -1,15 +1,14 @@
 package com.example.quizgame.controller;
 
 import com.example.quizgame.dto.UserDto;
+import com.example.quizgame.model.Team;
 import com.example.quizgame.model.User;
 import com.example.quizgame.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,5 +32,9 @@ public class UserController {
                         user.getImg()))
                 .collect(Collectors.toList());
     }
-    
+
+    @GetMapping("/{userId}/getTeam")
+    public Set<Team> getTeam(@PathVariable long userId){
+        return service.getTeamsOfUser(userId);
+    }
 }

@@ -51,12 +51,13 @@ public class User {
     private String img;
 
     public User(){}
-    public User(String username, String email, String password, String img, Role role){
+    public User(String username, String email, String password, String img, Role role, Set<Team> teams){
         this.username = username;
         this.email = email;
         this.password = password;
         this.img = img;
         this.role = role;
+        this.teams = teams;
     }
 
     public long getId() {

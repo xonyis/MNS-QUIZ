@@ -19,8 +19,6 @@ public class Role {
     @Column
     private EnumRole name;
 
-
-
     public Role() {
 
     }
