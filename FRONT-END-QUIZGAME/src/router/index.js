@@ -14,6 +14,8 @@ const BoardUser = () =>
     import ("../components/EcranUser.vue")
 const GestionUser = () =>
     import ("../views/GestionUser.vue")
+const GestionEquipe = () =>
+    import ("../views/GestionEquipe.vue")
 
 const routes = [{
         path: "/",
@@ -65,6 +67,12 @@ const routes = [{
         name: "user",
         // lazy-loaded
         component: GestionUser,
+    },
+    {
+        path: "/gestionEquipe",
+        name: "equipe",
+        // lazy-loaded
+        component: GestionEquipe,
     },
 ];
 

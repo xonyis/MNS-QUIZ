@@ -1,6 +1,8 @@
 package com.example.quizgame.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -39,6 +41,12 @@ public class User {
     @JsonBackReference
     private Role role;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_teams",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id"))
+    @JsonBackReference
+    private Set<Team> teams = new HashSet<>();
 
     private String img;
 
@@ -97,5 +105,14 @@ public class User {
 
     public void setImg(String img) {
         this.img = img;
+    }
+
+
+    public Set<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(Set<Team> teams) {
+        this.teams = teams;
     }
 }

@@ -13,7 +13,7 @@
         <button @click="logout">Log-out</button>
         <button @click="testo()">test</button>
         <p>Niveau :</p><br><br>
-        <p>Vos badges : {{ role }}</p>
+        <p>Votre poste : {{ role[0] }}</p>
       </div>
       <div class="div3 p-0">
         <div class="action-container ">
@@ -22,7 +22,7 @@
           <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
           <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
           <RouterLink v-if="checkAdminRole()">Créer un quizz</RouterLink>
-          <RouterLink v-if="checkAdminRole()">Gestion les équipes</RouterLink>
+          <RouterLink v-if="checkAdminRole()" to="/gestionEquipe">Gestion les équipes</RouterLink>
           <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
 
         </div>
