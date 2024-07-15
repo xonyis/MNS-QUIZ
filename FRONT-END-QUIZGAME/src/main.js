@@ -11,6 +11,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Importer les fichiers JavaScript de Bootstrap
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
+import 'bootstrap-icons/font/bootstrap-icons.css'; // Import Bootstrap Icons CSS
+
 
 import router from './router'
 

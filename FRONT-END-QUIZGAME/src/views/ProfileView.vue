@@ -1,5 +1,6 @@
 
 <template>
+  <NavBarComponent></NavBarComponent>
   <div class="container">
     <div class="parent">
       <div class="div1">
@@ -36,7 +37,7 @@
 </template>
   <script>
 import authService from '@/auth/auth-service';
-import UserService from '@/auth/user.service';
+import NavBarComponent from '../components/NavBarComponent.vue'
 import { RouterLink } from 'vue-router';
   export default {
     name: 'Profile',
@@ -44,6 +45,9 @@ import { RouterLink } from 'vue-router';
       return {
         test:null
       }
+    },
+    components: {
+      NavBarComponent
     },
     computed: {
       currentUser() {
