@@ -27,7 +27,7 @@ public class Question {
     @JsonBackReference
     private Quiz quiz;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "question", orphanRemoval = true)
     private List<Choice> choices;
 
     // Getters and Setters

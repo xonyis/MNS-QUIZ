@@ -9,7 +9,7 @@
       <tbody>
           <tr v-for="item in data" :key="item.id">
               <td v-for="column in displayColumns" :key="column.key" v-html="formatData(item, column)" :style="getColumnStyle(column)"></td>
-              <td v-if="hasActions" style="display: flex; justify-content: center;">
+              <td v-if="hasActions" style="display: flex; justify-content: space-around;">
                   <slot name="actions" :item="item"></slot>
               </td>
           </tr>

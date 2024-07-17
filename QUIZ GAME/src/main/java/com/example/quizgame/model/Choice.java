@@ -18,8 +18,8 @@ public class Choice {
     private Long id;
 
     private String text;
-
-    private boolean correct;
+    @Column(nullable = false)
+    private boolean isCorrect;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "question_id")
@@ -43,11 +43,11 @@ public class Choice {
     }
 
     public boolean isCorrect() {
-        return correct;
+        return isCorrect;
     }
 
-    public void setCorrect(boolean correct) {
-        this.correct = correct;
+    public void setCorrect(boolean isCorrect) {
+        this.isCorrect = isCorrect;
     }
 
     public Question getQuestion() {
@@ -58,3 +58,4 @@ public class Choice {
         this.question = question;
     }
 }
+

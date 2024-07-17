@@ -20,9 +20,8 @@
           <p class="m-0 fs-3" id="hello">Hey {{ user.username }} !</p>
           <div class="p-0" v-if="checkAdminRole()">
             <hr>
-            <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
+            <RouterLink v-if="checkAdminRole()" to="/gestionQuiz">Gestion des quizz</RouterLink>
             <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
-            <RouterLink v-if="checkAdminRole()">Créer un quizz</RouterLink>
             <RouterLink v-if="checkAdminRole()" to="/gestionEquipe">Gestion les équipes</RouterLink>
             <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
 

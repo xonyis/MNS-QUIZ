@@ -20,7 +20,7 @@ public class Quiz {
     @Column
     private String title;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "quiz")
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "quiz", orphanRemoval = true)
     @JsonManagedReference
     private List<Question> questions;
 

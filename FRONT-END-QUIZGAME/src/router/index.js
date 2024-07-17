@@ -16,6 +16,10 @@ const GestionUser = () =>
     import ("../views/GestionUser.vue")
 const GestionEquipe = () =>
     import ("../views/GestionEquipe.vue")
+const GestionQuiz = () =>
+    import ("../views/GestionQuiz.vue")
+const CreateQuiz = () =>
+    import ("../components/quiz/CreateQuiz.vue")
 
 const routes = [{
         path: "/",
@@ -73,6 +77,18 @@ const routes = [{
         name: "equipe",
         // lazy-loaded
         component: GestionEquipe,
+    },
+    {
+        path: "/gestionQuiz",
+        name: "gestionQuiz",
+        // lazy-loaded
+        component: GestionQuiz,
+    },
+    {
+        path: "/createQuiz",
+        name: "createQuiz",
+        // lazy-loaded
+        component: CreateQuiz,
     },
 ];
 
