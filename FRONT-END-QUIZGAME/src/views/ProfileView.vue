@@ -18,7 +18,7 @@
       <div class="div3 p-0">
         <div class="action-container ">
           <p class="m-0 fs-3" id="hello">Hey {{ user.username }} !</p>
-          <div v-if="checkAdminRole()">
+          <div class="p-0" v-if="checkAdminRole()">
             <hr>
             <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
             <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
@@ -210,11 +210,12 @@ width: 50vw;
 
 
 .action-container {
-  height: 100%;
+  height: max-content;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   text-align: center;
+
 }
 
 .action-container a{
@@ -229,6 +230,12 @@ text-align: center;
 text-decoration: none;
 transition: all .3s ease-in-out ;
 
+}
+
+.action-container div {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .action-container a:hover {
