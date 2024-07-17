@@ -12,52 +12,67 @@
       <div class="div2">
         
         <button @click="logout">Log-out</button>
-        <button @click="testo()">test</button>
         <p>Niveau :</p><br><br>
         <p>Votre poste : {{ role }}</p>
       </div>
       <div class="div3 p-0">
         <div class="action-container ">
           <p class="m-0 fs-3" id="hello">Hey {{ user.username }} !</p>
-          <hr>
-          <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
-          <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
-          <RouterLink v-if="checkAdminRole()">Créer un quizz</RouterLink>
-          <RouterLink v-if="checkAdminRole()" to="/gestionEquipe">Gestion les équipes</RouterLink>
-          <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
+          <div v-if="checkAdminRole()">
+            <hr>
+            <RouterLink v-if="checkAdminRole()">Gestion des quizz</RouterLink>
+            <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
+            <RouterLink v-if="checkAdminRole()">Créer un quizz</RouterLink>
+            <RouterLink v-if="checkAdminRole()" to="/gestionEquipe">Gestion les équipes</RouterLink>
+            <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
 
+          </div>
         </div>
       </div>
       <div class="div4">
-        <p>Vos Équipes :</p>
-        <p>afficher les équipe de l'user permettre d'accèder au quizz de la team, nbr de quizz, nbr de prsn dans l'equipe</p>        
-        <TableComponent :columns="columns" :data="userTeam" class="border"/>
+        <p class="fs-4">Vos Équipes :</p>
+          <EquipeComponent v-if="this.selectedTeam" :teams="this.selectedTeam"/>
       </div>
     </div>
   </div>
+
 </template>
   <script>
 import authService from '@/auth/auth-service';
 import NavBarComponent from '../components/NavBarComponent.vue'
 import TableComponent from '../components/TableComponent.vue'
+import EquipeComponent from '../components/profile/EquipeComponent.vue'
 import { RouterLink } from 'vue-router';
+import ModalComponent from '../components/ModalComponent.vue'
+
+import bootstrapBundleMin from 'bootstrap/dist/js/bootstrap.bundle.min'
 import userService from '@/auth/user.service';
+
   export default {
     name: 'Profile',
     data(){
       return {
         test:null,
+        selectedTeam: null,
         userTeam:[],
         columns: [
-              { key: 'id', label: 'ID' },
               { key: 'name', label: "Nom de l'equipe" },
               { key: 'userCount', label: "Nombre de participants" },
+              { key: 'actions', label: 'Actions' } // Include the actions column here
             ],
       }
     },
+    mounted() {
+      if (!this.currentUser) {
+        this.$router.push('/login');
+      }
+      this.getTeam()
+    },
     components: {
+      EquipeComponent,
       NavBarComponent,
-      TableComponent
+      TableComponent,
+      ModalComponent
     },
     computed: {
       currentUser() {
@@ -70,13 +85,7 @@ import userService from '@/auth/user.service';
         return this.user.roles
       },
     },
-    mounted() {
-      if (!this.currentUser) {
-        
-        this.$router.push('/login');
-      }
-      this.getUserTeam()
-    },
+    
     methods:{
         logout(){
           authService.logout()
@@ -98,23 +107,21 @@ import userService from '@/auth/user.service';
         checkAdminRole(){
           return this.role.includes('ROLE_ADMIN');
         },
-        testo(){
-          console.log(this.currentUser.user);
+        async getTeam(){
+          console.log(this.currentUser.user.id);
+          let response = await userService.getTeam(this.currentUser.user.id)
+          this.selectedTeam = response.data 
+          console.log(this.selectedTeam);
         },
-        async getUserTeam(){
-          try {
-            console.log(this.teamToAdd);
-              const response = await userService.getTeam(this.user.id);
-              this.userTeam = response.data.map(team => ({
-                        ...team,
-                        userCount: team.users.length
-                    }))
-              console.log(response.data);
-            } catch (error) {
-              console.error('Erreur lors de la récupération des utilisateurs:', error);
-              // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
-            }
-        }
+        showModal(modalId) {
+          const modalElement = document.getElementById(modalId);
+          const modalInstance = new bootstrapBundleMin.Modal(modalElement);
+          modalInstance.show();
+        },
+        openEditModal(team) {
+      this.selectedTeam = { ...team }; // Clone the team data
+      this.showModal('editTeamModal');
+    },
     }
   };
   </script>
@@ -156,10 +163,10 @@ width: 50vw;
 
 .div2 button {
   float: right;
-  font-size: 1.2em;
+  font-size: 1em;
   color: #fff;
   background: var(--orange-mns);
-  padding: .3em 1em;
+  padding: .3em .7em;
   border-radius: 7px;
   font-weight: 600;
   border: 2px solid var(--orange-mns);

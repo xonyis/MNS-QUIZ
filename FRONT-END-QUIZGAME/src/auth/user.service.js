@@ -46,7 +46,7 @@ class UserService {
         return axios.get(API_URL + 'getall')
     }
 
-    getTeam(id){
+    async getTeam(id){
         return axios.get(API_URL + id + '/getTeam')
     }
 }
