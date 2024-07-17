@@ -5,9 +5,11 @@
         <h3>{{ quiz.title }}</h3>
         <div v-for="question in quiz.questions" :key="question.id">
           <p>{{ question.text }}</p>
-          <template v-if="question.type === 'QCM'">
+          <template v-if="question.type === 'REGULAR'">
             <ul>
-              <li v-for="choice in question.choices" :key="choice.id">{{ choice.text }}</li>
+              <li v-for="choice in getShuffledChoices(question.choices)" :key="choice.id">
+                <button  :class="{'btn btn-success': choice.correct, 'btn btn-danger': !choice.correct}" >{{ choice.text }}</button>
+              </li>
             </ul>
           </template>
         </div>
@@ -19,7 +21,8 @@
   export default {
     data() {
       return {
-        quizzes: []
+        quizzes: [],
+        showResult: true,
       };
     },
     mounted() {
@@ -38,6 +41,14 @@
         } catch (error) {
           console.error(error);
         }
+      },
+      getShuffledChoices(choices) {
+        let shuffled = choices.slice(); // Copie du tableau original
+        for (let i = shuffled.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+        }
+        return shuffled;
       }
     }
   };

@@ -1,6 +1,8 @@
 package com.example.quizgame.service;
 
 import com.example.quizgame.model.Quiz;
+import com.example.quizgame.repository.ChoiceRepository;
+import com.example.quizgame.repository.QuestionRepository;
 import com.example.quizgame.repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,11 +13,21 @@ import java.util.List;
 public class QuizService {
 
     @Autowired
-    QuizRepository repository;
+    private QuizRepository quizRepository;
+
+    @Autowired
+    private QuestionRepository questionRepository;
+
+    @Autowired
+    private ChoiceRepository choiceRepository;
     public List<Quiz> getAllQuizzes() {
-        return repository.findAll();
+        System.out.println("--------------------------------");
+        System.out.println(quizRepository.findAll());
+        System.out.println("--------------------------------");
+        return quizRepository.findAll();
     }
     public Quiz createQuiz(Quiz quiz) {
-        return repository.save(quiz);
+        System.out.println(quiz.toString());
+        return quizRepository.save(quiz);
     }
 }

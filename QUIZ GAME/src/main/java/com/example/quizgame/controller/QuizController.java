@@ -29,7 +29,7 @@ public class QuizController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Quiz> getQuizById(@PathVariable Long id) {
+    public ResponseEntity<Quiz> getQuizById(@PathVariable int id) {
         return quizRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
@@ -96,7 +96,7 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Quiz> updateQuiz(@PathVariable Long id, @RequestBody Quiz quizDetails) {
+    public ResponseEntity<Quiz> updateQuiz(@PathVariable int id, @RequestBody Quiz quizDetails) {
         return quizRepository.findById(id)
                 .map(quiz -> {
                     quiz.setTitle(quizDetails.getTitle());
@@ -108,7 +108,7 @@ public class QuizController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteQuiz(@PathVariable Long id) {
+    public ResponseEntity<Object> deleteQuiz(@PathVariable int id) {
         return quizRepository.findById(id)
                 .map(quiz -> {
                     quizRepository.delete(quiz);

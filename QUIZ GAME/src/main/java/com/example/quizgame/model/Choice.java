@@ -1,9 +1,11 @@
 package com.example.quizgame.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,24 +15,26 @@ import org.springframework.web.bind.annotation.RestController;
 @Table(name = "choice")
 public class Choice {
 
-    @Id
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Id
+    private int id;
 
     private String text;
     @Column(nullable = false)
-    private boolean isCorrect;
+    private boolean correct;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "question_id")
+    @JoinColumn(name = "question_id", nullable = false)
+    @JsonBackReference
     private Question question;
 
     // Getters and Setters
-    public Long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -43,11 +47,11 @@ public class Choice {
     }
 
     public boolean isCorrect() {
-        return isCorrect;
+        return correct;
     }
 
-    public void setCorrect(boolean isCorrect) {
-        this.isCorrect = isCorrect;
+    public void setCorrect(boolean correct) {
+        this.correct = correct;
     }
 
     public Question getQuestion() {
