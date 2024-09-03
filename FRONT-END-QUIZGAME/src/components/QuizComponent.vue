@@ -55,6 +55,5 @@
   </script>
   
   <style>
-  /* Ajoutez des styles CSS supplémentaires si nécessaire */
   </style>
   

@@ -19,7 +19,7 @@ const GestionEquipe = () =>
 const GestionQuiz = () =>
     import ("../views/GestionQuiz.vue")
 const CreateQuiz = () =>
-    import ("../components/quiz/CreateQuiz.vue")
+    import ("../views/CreateQuiz.vue")
 
 const routes = [{
         path: "/",

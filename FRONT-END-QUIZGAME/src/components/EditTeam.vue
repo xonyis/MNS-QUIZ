@@ -20,7 +20,6 @@
     </div>
 </template>
 <script>
-import { Form, Field, ErrorMessage } from "vee-validate";
 
 import TableComponent from '../components/TableComponent.vue'
 import teamService from '../service/teamService.js'

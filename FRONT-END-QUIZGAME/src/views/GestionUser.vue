@@ -1,4 +1,5 @@
 <template>
+  <NavBarComponent/>
     <main>
         <div class="row">
             <div class="col-10 mt-5 m-auto card p-0">
@@ -9,12 +10,12 @@
 
                 
             </div>
-            <QuizComponent/>
         </div>
 
     </main>
 </template>
 <script>
+import NavBarComponent from '@/components/NavBarComponent.vue';
 import userService from '@/auth/user.service';
 import TableComponent from '../components/TableComponent.vue'
 import QuizComponent from '../components/QuizComponent.vue'
@@ -35,7 +36,8 @@ export default {
     },
     components : {
         TableComponent,
-        QuizComponent
+        QuizComponent,
+        NavBarComponent
     },
     methods: {
         async test() {
