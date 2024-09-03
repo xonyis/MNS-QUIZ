@@ -1,5 +1,6 @@
 <template>
-    <div>
+    <NavBarComponent/>
+    <div class="col-10 m-auto">
       <h2>Créer un questionnaire</h2>
       <form @submit.prevent="submitForm">
         <!-- Titre du questionnaire -->
@@ -54,6 +55,9 @@
   </template>
   
   <script>
+import NavBarComponent from '@/components/NavBarComponent.vue';
+
+
   export default {
     data() {
       return {
@@ -63,6 +67,9 @@
         },
         submitted: false,
       };
+    },
+    components: {
+        NavBarComponent
     },
     methods: {
       addQuestion() {

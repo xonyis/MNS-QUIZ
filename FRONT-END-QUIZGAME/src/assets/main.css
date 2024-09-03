@@ -1,2 +1,4 @@
 @import './base.css';
-
+#app {
+    background: #BDB2FF;
+}
