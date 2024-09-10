@@ -1,7 +1,10 @@
 package com.example.quizgame.controller;
 
 import com.example.quizgame.model.Quiz;
+import com.example.quizgame.model.Score;
+import com.example.quizgame.model.Team;
 import com.example.quizgame.repository.QuizRepository;
+import com.example.quizgame.repository.TeamRepository;
 import com.example.quizgame.service.QuizService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 @RestController
@@ -19,6 +23,9 @@ import java.util.List;
 public class QuizController {
     @Autowired
     private QuizRepository quizRepository;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @Autowired
     private QuizService service;
@@ -35,8 +42,9 @@ public class QuizController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public Quiz createQuiz(@RequestBody Quiz quiz) {
+    @PostMapping("/createQuizz")
+    public Quiz createQuiz(@RequestBody Quiz quiz, @RequestParam(required = false) String teamName) {
+
 //        {
 //    "title": "HTML",
 //    "questions": [
@@ -92,7 +100,11 @@ public class QuizController {
 //        }
 //    ]
 //}
-        return service.createQuiz(quiz);
+        Optional<Team> team = teamRepository.findByName(teamName);
+        if (team.isPresent()) {
+            return service.createQuiz(quiz, team.get().getId());
+        }
+        return service.createQuiz(quiz, null);
     }
 
     @PutMapping("/{id}")
@@ -100,12 +112,20 @@ public class QuizController {
         return quizRepository.findById(id)
                 .map(quiz -> {
                     quiz.setTitle(quizDetails.getTitle());
-                    quiz.setQuestions(quizDetails.getQuestions());
+                    if (quizDetails.getQuestions() != null) {
+                        // Vider les anciennes questions
+                        quiz.getQuestions().clear();
+
+                        // Ajouter les nouvelles questions
+                        quiz.getQuestions().addAll(quizDetails.getQuestions());
+                    }
                     Quiz updatedQuiz = quizRepository.save(quiz);
                     return ResponseEntity.ok(updatedQuiz);
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Object> deleteQuiz(@PathVariable int id) {
@@ -115,5 +135,21 @@ public class QuizController {
                     return ResponseEntity.noContent().build();
                 })
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/public")
+    public List<Quiz> getPublicQuizzes() {
+        return service.getPublicQuizzes();
+    }
+
+    @GetMapping("/{teamId}/findQuizByTeamId")
+    public List<Quiz> getQuizzesByTeam(@PathVariable long teamId) {
+        return service.getQuizByTeamId(teamId);
+    }
+
+    @PostMapping("/{quizId}/updateScore")
+    public ResponseEntity<Score> updateScore(@RequestParam int userId, @PathVariable Long quizId, @RequestParam String score) {
+        Score updatedScore = service.updateScore(userId, quizId, score);
+        return ResponseEntity.ok(updatedScore);
     }
 }

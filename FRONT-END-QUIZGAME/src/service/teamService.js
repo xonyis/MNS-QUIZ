@@ -29,20 +29,24 @@ class TeamService {
         return axios.get(API_URL + 'all');
     }
 
-    removeUserFromTeam(teamId, userId){
-        return axios.post(API_URL +teamId+'/removeUser/'+userId)
+    getByName(teamName) {
+        return axios.get(API_URL + 'teamByName/' + teamName)
+    }
+
+    removeUserFromTeam(teamId, userId) {
+        return axios.post(API_URL + teamId + '/removeUser/' + userId)
     }
 
     addUserToTeam(teamId, userName) {
-        return axios.post(API_URL +teamId+'/addUser/'+userName)
+        return axios.post(API_URL + teamId + '/addUser/' + userName)
     }
 
     createTeam(teamName) {
-        return axios.post(API_URL +'create', {name:teamName})
+        return axios.post(API_URL + 'create', { name: teamName })
     }
-    
+
     deleteTeam(teamId) {
-        return axios.delete(API_URL +'delete/'+teamId)
+        return axios.delete(API_URL + 'delete/' + teamId)
     }
 }
 

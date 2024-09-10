@@ -1,14 +1,18 @@
 package com.example.quizgame.controller;
 
 import com.example.quizgame.model.Team;
+import com.example.quizgame.repository.TeamRepository;
 import com.example.quizgame.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
@@ -17,6 +21,9 @@ public class TeamController {
 
     @Autowired
     private TeamService teamService;
+
+    @Autowired
+    private TeamRepository teamRepository;
 
     @PostMapping("/create")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -57,4 +64,12 @@ public class TeamController {
         Team team = teamService.removeUserFromTeam(teamId, userId);
         return ResponseEntity.ok(team);
     }
+
+    @GetMapping("/teamByName/{teamName}")
+    public ResponseEntity<Team> findTeamByName(@PathVariable String teamName) {
+        Team team = teamRepository.findByName(teamName)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Team not found"));
+        return ResponseEntity.ok(team);
+    }
+
 }

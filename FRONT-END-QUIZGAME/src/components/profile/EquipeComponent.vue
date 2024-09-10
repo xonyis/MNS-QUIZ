@@ -7,10 +7,10 @@
                 </button>
             </template>
         </TableComponent>
-        <ModalComponent :title="selectedTeam.name" modalId="editTeamModal" :data="selectedTeam" @confirm="editTeam">
+        <ModalComponent :title="selectedTeam.name" modalId="editTeamModal" :data="selectedTeam" @confirm="editTeam" :footerDisplay="false">
             <!-- Modal content goes here -->
             <TeamInfos :team="selectedTeam"/>
-        </ModalComponent>
+        </ModalComponent> 
     </div>
 </template>
 <script>

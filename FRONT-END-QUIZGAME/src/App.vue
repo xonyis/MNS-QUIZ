@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="background-app">
     <!-- <nav class="navbar navbar-expand navbar-dark bg-dark">
       <div class="navbar-nav mr-auto">
         <li class="nav-item">
@@ -87,5 +87,8 @@ export default {
   height: 100vh;
 
 }
+.background-app {
+  background: #BDB2FF;
 
+}
 </style>

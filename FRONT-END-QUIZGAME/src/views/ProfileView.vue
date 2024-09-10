@@ -18,14 +18,15 @@
       <div class="div3 p-0">
         <div class="action-container ">
           <p class="m-0 fs-3" id="hello">Hey {{ user.username }} !</p>
-          <div class="p-0" v-if="checkAdminRole()">
+          <div class="p-0">
             <hr>
             <RouterLink v-if="checkAdminRole()" to="/gestionQuiz">Gestion des quizz</RouterLink>
             <RouterLink v-if="checkAdminRole()" to="/gestionUser">Gestion des utilisateurs</RouterLink>
             <RouterLink v-if="checkAdminRole()" to="/gestionEquipe">Gestion les équipes</RouterLink>
-            <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink>
-
+            <!-- <RouterLink v-if="checkAdminRole()">Gestion des succès</RouterLink> -->
+            <RouterLink to="/QuizView">Quizz Public</RouterLink>
           </div>
+          
         </div>
       </div>
       <div class="div4">
@@ -142,7 +143,13 @@ grid-template-rows: repeat(4, 1fr);
 grid-column-gap: 15px;
 grid-row-gap: 20px;
 height: 85vh;
-width: 50vw;
+width: 70vw;
+}
+
+@media (min-width: 1441px) {
+  .parent {
+    width: 50vw;
+  }
 }
 
 .parent div {

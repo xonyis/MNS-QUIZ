@@ -1,12 +1,13 @@
 <template>
     <NavBarComponent/>
     <div class="col-10 m-auto">
-      <h2>Créer un questionnaire</h2>
+      <h2>Editer un questionnaire</h2>
       <form @submit.prevent="submitForm">
         <!-- Titre du questionnaire -->
         <div>
           <label for="title">Titre du questionnaire :</label>
-          <input type="text" v-model="quiz.title" id="title" required />
+          {{ this.quiz.title }}
+          <input type="text" v-model="this.quiz.title" id="title" required />
         </div>
   
         <!-- Questions -->
@@ -30,7 +31,7 @@
             <label>Choix {{ cIndex + 1 }} :</label>
             <input type="text" v-model="choice.text" required />
             <label>
-              <input type="checkbox" v-model="choice.isCorrect" /> Correct ?
+              <input type="checkbox" v-model="choice.correct" /> Correct ?
             </label>
             <button type="button" @click="removeChoice(qIndex, cIndex)">Supprimer choix</button>
           </div>
@@ -44,18 +45,21 @@
         <hr />
   
         <!-- Bouton soumettre -->
-        <button type="submit">Soumettre le questionnaire</button>
+        <button type="submit" @click="updateQuizz">Soumettre le questionnaire</button>
       </form>
+  
+      
   
       <div v-if="submitted">
         <h2>Objet généré :</h2>
-        <pre>{{ quiz }}</pre>
       </div>
     </div>
   </template>
   
   <script>
 import NavBarComponent from '@/components/NavBarComponent.vue';
+import quizService from '../../service/quizService.js'
+import router from '@/router/index.js';
 
 
   export default {
@@ -68,6 +72,15 @@ import NavBarComponent from '@/components/NavBarComponent.vue';
         submitted: false,
       };
     },
+    mounted() {
+        const storedObject = localStorage.getItem('quizEdit');
+        if (storedObject) {
+            
+          this.quiz = JSON.parse(storedObject);
+          
+        }
+    },
+    
     components: {
         NavBarComponent
     },
@@ -77,12 +90,15 @@ import NavBarComponent from '@/components/NavBarComponent.vue';
           text: "",
           type: "REGULAR",
           choices: [
-            { text: "", isCorrect: false },
-            { text: "", isCorrect: false },
-            { text: "", isCorrect: false },
-            { text: "", isCorrect: false },
+            { text: "", correct: false },
+            { text: "", correct: false },
+            { text: "", correct: false },
+            { text: "", correct: false },
           ],
         });
+      },
+      log(){
+        console.log(this.quizId);
       },
       removeQuestion(index) {
         this.quiz.questions.splice(index, 1);
@@ -90,16 +106,26 @@ import NavBarComponent from '@/components/NavBarComponent.vue';
       addChoice(questionIndex) {
         this.quiz.questions[questionIndex].choices.push({
           text: "",
-          isCorrect: false,
+          correct: false,
         });
       },
       removeChoice(questionIndex, choiceIndex) {
         this.quiz.questions[questionIndex].choices.splice(choiceIndex, 1);
       },
-      submitForm() {
+      async updateQuizz() {
         this.submitted = true;
         console.log("Quiz Object:", this.quiz);
         // Ici, vous pouvez envoyer les données au serveur ou faire autre chose avec l'objet quiz
+        
+        try {
+          const response = await quizService.updateQuiz(this.quiz.id,JSON.stringify(this.quiz));
+          
+          console.log(response);
+          router.push("gestionQuiz")
+        } catch (error) {
+          console.error('Erreur lors de la :', error);
+          // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
+        }
       },
     },
   };

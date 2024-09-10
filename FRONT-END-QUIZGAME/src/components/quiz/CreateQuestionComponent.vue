@@ -5,7 +5,7 @@
 
             <div class="choices-form col-6 mt-3 border">
                 <input type="text" placeholder="choix 1" class="col-6" v-model="newChoice.text"> 
-                <input type="checkbox" v-model="newChoice.isCorrect">
+                <input type="checkbox" v-model="newChoice.correct">
                 <button class=" btn btn-primary" @click="addChoice">ajouter</button>
             </div>
         <button  class="mt-3 btn btn-primary">Enregister </button>    
@@ -22,7 +22,7 @@ export default {
         },
         newChoice: {
             text: null,
-            isCorrect: false
+            correct: false
         }
         }
     },
@@ -33,7 +33,7 @@ export default {
         } else {
             console.log("il ne peut y avoir plus de 4 choix par questions ");
         }
-        this.newChoice =  { text: null, isCorrect: false}
+        this.newChoice =  { text: null, correct: false}
         console.log(this.newQuestion);
     }
     }

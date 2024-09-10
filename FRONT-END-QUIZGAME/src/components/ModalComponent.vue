@@ -1,6 +1,6 @@
 <template>
     <div class="modal fade" tabindex="-1" :id="modalId">
-      <div class="modal-dialog">
+      <div class="modal-dialog  modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">{{ title }}</h5>
@@ -9,7 +9,7 @@
           <div class="modal-body">
             <slot :data="data"></slot>
           </div>
-          <div class="modal-footer">
+          <div v-if="footerDisplay" class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" @click="confirmAction">Save changes</button>
           </div>
@@ -35,7 +35,11 @@
       data: {
         type: Object,
         default: () => ({})
-      }
+      },
+      footerTrue: {
+        type: Boolean,
+        default: true
+      },
     },
     methods: {
       confirmAction() {

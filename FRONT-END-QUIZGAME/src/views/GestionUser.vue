@@ -18,7 +18,7 @@
 import NavBarComponent from '@/components/NavBarComponent.vue';
 import userService from '@/auth/user.service';
 import TableComponent from '../components/TableComponent.vue'
-import QuizComponent from '../components/QuizComponent.vue'
+import QuizComponent from '../components/quiz/QuizComponent.vue'
 export default {
     data(){
         return {

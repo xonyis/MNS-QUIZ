@@ -4,6 +4,9 @@ import Login from "../components/Login.vue";
 import Register from "../components/Register.vue";
 import Signup from "../components/Signup.vue";
 import ProfileView from '../views/ProfileView.vue';
+import EditQuiz from '@/views/quiz/EditQuiz.vue';
+import QuizzView from '@/views/quiz/QuizzView.vue';
+import QuizComponent from '@/components/quiz/QuizComponent.vue';
 
 // lazy-loaded
 const BoardAdmin = () =>
@@ -19,7 +22,7 @@ const GestionEquipe = () =>
 const GestionQuiz = () =>
     import ("../views/GestionQuiz.vue")
 const CreateQuiz = () =>
-    import ("../views/CreateQuiz.vue")
+    import ("../views/quiz/CreateQuiz.vue")
 
 const routes = [{
         path: "/",
@@ -89,6 +92,25 @@ const routes = [{
         name: "createQuiz",
         // lazy-loaded
         component: CreateQuiz,
+    },
+    {
+        path: "/editQuiz",
+        name: "editQuiz",
+        // lazy-loaded
+        component: EditQuiz,
+
+    },
+    {
+        path: "/quizView",
+        name: "quizView",
+        // lazy-loaded
+        component: QuizzView,
+    },
+    {
+        path: "/playQuiz",
+        name: "playQuiz",
+        // lazy-loaded
+        component: QuizComponent,
     },
 ];
 

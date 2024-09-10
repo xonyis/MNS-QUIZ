@@ -1,13 +1,13 @@
 <template>
     <NavBarComponent></NavBarComponent>
     <div class="p-3">
-        <div class="card col-6 m-auto  p-2">
-            <RouterLink class="btn btn-primary col-4"to="/createQuiz">Créer un quizz</RouterLink>
+        <div class="card col-8 m-auto  p-2">
+            <div class="col-12 p-2">
+                <RouterLink class=" btn btn-primary col-4 float-end" to="/createQuiz">Créer un quiz</RouterLink>
+            </div>
             <TableComponent :columns="columns" :data="this.quizs" class="border">
                 <template #actions="{ item }">
-                <button @click="openEditModal(item)" class="btn btn-primary">
-                    <i class="bi bi-pencil"></i> Edit
-                </button>
+                    <button class="btn btn-primary" @click="editQuiz(item)"><i class="bi bi-pencil"></i> Edit</button>
                 <button @click="deleteQuiz(item.id)" class="btn btn-danger">
                     <i class="bi bi-trash"></i> Delete
                 </button>
@@ -22,6 +22,7 @@ import { RouterLink } from 'vue-router';
 import NavBarComponent from '../components/NavBarComponent.vue'
 import TableComponent from '@/components/TableComponent.vue';
 import quizService from '../service/quizService.js'
+import router from '@/router';
 export default {
     data() {
         return {
@@ -29,6 +30,7 @@ export default {
             columns: [
               { key: 'id', label: 'ID' },
               { key: 'title', label: "Nom du quiz" },
+
               { key: 'actions', label: 'Actions' } // Include the actions column here
 
             ],
@@ -57,6 +59,12 @@ export default {
               // Gérer l'erreur ici, par exemple afficher un message à l'utilisateur
             }
         },
+        editQuiz(item) {
+            router.push('editQuiz')
+            console.log(item);
+            localStorage.setItem('quizEdit', JSON.stringify(item));
+            
+        }
     },
     components: {
         NavBarComponent,
