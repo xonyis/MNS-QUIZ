@@ -7,6 +7,7 @@ import ProfileView from '../views/ProfileView.vue';
 import EditQuiz from '@/views/quiz/EditQuiz.vue';
 import QuizzView from '@/views/quiz/QuizzView.vue';
 import QuizComponent from '@/components/quiz/QuizComponent.vue';
+import LeaderBoardView from '@/views/LeaderBoardView.vue';
 
 // lazy-loaded
 const BoardAdmin = () =>
@@ -112,6 +113,13 @@ const routes = [{
         // lazy-loaded
         component: QuizComponent,
     },
+    {
+        path: "/leaderboard",
+        name: "leaderboard",
+        // lazy-loaded
+        component: LeaderBoardView,
+    },
+
 ];
 
 const router = createRouter({

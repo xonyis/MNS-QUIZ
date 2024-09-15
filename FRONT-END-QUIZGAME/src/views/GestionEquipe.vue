@@ -19,6 +19,7 @@
             <div class="form-group">
               <label for="exampleInputEmail1">Nom de l'équipe :</label>
               <input type="email" class="form-control" id="exampleInputEmail1" v-model="teamToAdd" aria-describedby="emailHelp" placeholder="Nom de l'équipe">
+              <button class="btn btn-primary mt-3 float-end" @click="createTeam(teamToAdd)">Ajouter</button>
             </div>
         </ModalComponent>
         <ModalComponent :title="selectedTeam.name" modalId="editTeamModal" :data="selectedTeam" @confirm="editTeam">

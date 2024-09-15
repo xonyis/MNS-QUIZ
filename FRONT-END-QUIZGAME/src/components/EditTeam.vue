@@ -11,12 +11,15 @@
             </template>
         </TableComponent>
 
-        <ModalComponent title="Ajouter un Participant" modalId="addParticipant" @confirm="addUser(this.userToAdd)">
+        <ModalComponent title="Ajouter un Participant" modalId="addParticipant" >
             <div class="form-group">
               <label for="exampleInputEmail1">Nom d'utilisateur :</label>
               <input type="email" class="form-control" id="exampleInputEmail1" v-model="userToAdd" aria-describedby="emailHelp" placeholder="Nom d'utilisateur">
             </div>
-        </ModalComponent>
+            <div>
+                <button @click="addUser(this.userToAdd)" class="btn btn-primary mt-3 float-end">Ajouter un utilisateur</button>
+            </div>
+        </ModalComponent> 
     </div>
 </template>
 <script>

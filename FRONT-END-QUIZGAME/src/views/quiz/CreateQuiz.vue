@@ -1,76 +1,83 @@
 <template>
     <NavBarComponent/>
-    <div class="col-12 m-auto">
-      <h2 class="text-center mt-5 mb-3">Créer un questionnaire</h2>
+    <div class="col-12 m-auto p-3">
       
 
-      <form @submit.prevent="submitForm" class="card col-8 p-5 m-auto">
+      <form @submit.prevent="submitForm" class="card mt-5 col-8 m-auto">
         <!-- Titre du questionnaire -->
-        <div class="mb-3 ">
-          <label for="title" class="form-label">Titre du quiz :</label>
-          <input type="text" class="form-control" v-model="quiz.title" id="title" required />
-        </div>
+        <div class="card-header">
+         <h4 class="mt-1 mb-2">Créer un quiz</h4>
 
-        <div class="mb-3 form-check">
-          <label v-if="quiz.visibility" for="isPublic" class="form-check-label">Public</label>
-          <label v-else  for="isPublic" class="form-check-label">Privé</label>
-          <input type="checkbox" id="isPublic" class="form-check-input" v-model="quiz.visibility" /> 
         </div>
+        <div class="card-body p-5">
 
-        <div class="mb-3 " v-if="!quiz.visibility">
-          <label for="teamName" class="form-label">Nom de l'équipe :</label>
-          <input type="text" class="form-control" v-model="teamName" id="teamName" required />
-        </div>
-  
+
+          <div class="mb-3 ">
+            <label for="title" class="form-label">Titre du quiz :</label>
+            <input type="text" class="form-control" v-model="quiz.title" id="title" required />
+          </div>
+
+          <div class="mb-3 form-check">
+            <label v-if="quiz.visibility" for="isPublic" class="form-check-label">Public</label>
+            <label v-else  for="isPublic" class="form-check-label">Privé</label>
+            <input type="checkbox" id="isPublic" class="form-check-input" v-model="quiz.visibility" /> 
+          </div>
+
+          <div class="mb-3 " v-if="!quiz.visibility">
+            <label for="teamName" class="form-label">Nom de l'équipe :</label>
+            <input type="text" class="form-control" v-model="teamName" id="teamName" required />
+          </div>
         
-        <!-- Questions -->
-        <div v-for="(question, qIndex) in quiz.questions" :key="qIndex" class="question-block  card p-3">
-          <h3>Question {{ qIndex + 1 }}</h3>
-  
-          <div class="mb-3 col-8">
-            <label for="questionText" class="form-label">Texte de la question :</label>
-            <input type="text" class="form-control" id="questionText" v-model="question.text" required />
-          </div>
-  
-          <div class="mb-3  col-4 ">
-            <label for="questionType"  class="form-label">Type de question :</label>
-            <select v-model="question.type" class="form-select"  id="questionType">
-              <option value="REGULAR">REGULAR</option>
-            </select>
-          </div>
-  
-          <!-- Choix de réponses -->
-          <div v-for="(choice, cIndex) in question.choices" :key="cIndex" class="mb-3">
-            <div class="d-flex justify-content-between mb-1">
-              <label>Choix {{ cIndex + 1 }} : </label> 
-              <i class="bi bi-dash-circle text-danger" @click="removeChoice(qIndex, cIndex)"></i>
-              
-            </div>
-            
 
-            <input type="text" class="form-control " v-model="choice.text" required />
+          <!-- Questions -->
+          <div v-for="(question, qIndex) in quiz.questions" :key="qIndex" class="question-block  card p-3">
+            <h3>Question {{ qIndex + 1 }}</h3>
           
-            <div class="mb-3 mt-1 form-check">
-              <input type="checkbox" id="isCorrect" class="form-check-input " v-model="choice.correct" /> 
-              <label v-if="choice.correct" for="" class="form-check-label">Correct</label>
-              <label v-else for="" class="form-check-label">Faux</label>
-              
+            <div class="mb-3 col-8">
+              <label for="questionText" class="form-label">Texte de la question :</label>
+              <input type="text" class="form-control" id="questionText" v-model="question.text" required />
+            </div>
+          
+            <div class="mb-3  col-4 ">
+              <label for="questionType"  class="form-label">Type de question :</label>
+              <select v-model="question.type" class="form-select"  id="questionType">
+                <option value="REGULAR">REGULAR</option>
+              </select>
+            </div>
+          
+            <!-- Choix de réponses -->
+            <div v-for="(choice, cIndex) in question.choices" :key="cIndex" class="mb-3">
+              <div class="d-flex justify-content-between mb-1">
+                <label>Choix {{ cIndex + 1 }} : </label> 
+                <i class="bi bi-dash-circle text-danger" @click="removeChoice(qIndex, cIndex)"></i>
+
+              </div>
+
+
+              <input type="text" class="form-control " v-model="choice.text" required />
+            
+              <div class="mb-3 mt-1 form-check">
+                <input type="checkbox" id="isCorrect" class="form-check-input " v-model="choice.correct" /> 
+                <label v-if="choice.correct" for="" class="form-check-label">Correct</label>
+                <label v-else for="" class="form-check-label">Faux</label>
+
+              </div>
+
             </div>
 
+
+            <button type="button" class="btn btn-primary col-4" @click="addChoice(qIndex)"><i class="bi bi-plus-circle"></i> &nbsp; Ajouter un choix</button>
+
+            <hr />
+            <button type="button" class="btn btn-danger col-5" @click="removeQuestion(qIndex)"><i class="bi bi-dash-circle"></i> &nbsp; Supprimer la question</button>
           </div>
-
-
-          <button type="button" class="btn btn-primary col-4" @click="addChoice(qIndex)"><i class="bi bi-plus-circle"></i> &nbsp; Ajouter un choix</button>
-
+          <button type="button" class="btn btn-primary col-5" @click="addQuestion"><i class="bi bi-plus-circle"></i> &nbsp; Ajouter une question </button>
+        
           <hr />
-          <button type="button" class="btn btn-danger col-5" @click="removeQuestion(qIndex)"><i class="bi bi-dash-circle"></i> &nbsp; Supprimer la question</button>
+        
+          <!-- Bouton soumettre -->
+          <button type="submit" class="btn btn-primary" @click="submitQuizz">Soumettre le questionnaire</button>
         </div>
-        <button type="button" class="btn btn-primary col-5" @click="addQuestion"><i class="bi bi-plus-circle"></i> &nbsp; Ajouter une question </button>
-  
-        <hr />
-  
-        <!-- Bouton soumettre -->
-        <button type="submit" class="btn btn-primary" @click="submitQuizz">Soumettre le questionnaire</button>
       </form>
   
       <!-- <div v-if="submitted!= 1000">
