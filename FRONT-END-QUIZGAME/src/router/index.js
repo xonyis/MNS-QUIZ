@@ -8,6 +8,7 @@ import EditQuiz from '@/views/quiz/EditQuiz.vue';
 import QuizzView from '@/views/quiz/QuizzView.vue';
 import QuizComponent from '@/components/quiz/QuizComponent.vue';
 import LeaderBoardView from '@/views/LeaderBoardView.vue';
+import MentionLegale from '@/views/mentionLegale.vue';
 
 // lazy-loaded
 const BoardAdmin = () =>
@@ -118,6 +119,12 @@ const routes = [{
         name: "leaderboard",
         // lazy-loaded
         component: LeaderBoardView,
+    },
+    {
+        path: "/metionLegale",
+        name: "metionLegale",
+        // lazy-loaded
+        component: MentionLegale,
     },
 
 ];
