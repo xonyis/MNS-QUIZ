@@ -25,7 +25,6 @@ public class SignupRequest {
 
     private String img;
 
-    private Set<Team> teams;
 
     public String getUsername() {
         return username;
@@ -67,11 +66,5 @@ public class SignupRequest {
         this.img = img;
     }
 
-    public Set<Team> getTeams() {
-        return teams;
-    }
 
-    public void setTeams(Set<Team> teams) {
-        this.teams = teams;
-    }
 }

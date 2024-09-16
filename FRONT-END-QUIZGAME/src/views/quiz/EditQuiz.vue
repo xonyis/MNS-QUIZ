@@ -85,7 +85,7 @@
 import NavBarComponent from '@/components/NavBarComponent.vue';
 import quizService from '../../service/quizService.js'
 import router from '@/router/index.js';
-
+import teamService from '@/service/teamService';
 
   export default {
     data() {
